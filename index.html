@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>HTTP Request Demo</title>
+</head>
+
+<body>
+  <form id="myForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <div id="response"></div>
+
+  <script>
+    document.getElementById("myForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      // Create a new HTTP request
+      var xhr = new XMLHttpRequest();
+
+      // Define the server address
+      var host = "deeppinkraggedinitialization.dopebope.repl.co"; // Replace with the actual server address
+      var port = 80; // Default HTTP port
+
+      // Define the data to send (as a query string)
+      var data = "username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password);
+
+      // Open a POST request to the server
+      xhr.open("POST", "http://" + host + "/login", true);
+
+      // Set the Content-Type header
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+      // Handle the response
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          document.getElementById("response").innerHTML = "Response: " + xhr.responseText;
+        }
+      };
+
+      // Send the data
+      xhr.send(data);
+    });
+  </script>
+</body>
+
+</html>
